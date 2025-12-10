@@ -15,7 +15,7 @@ export function PrimaryButton({ href, to, children, className = '', onClick, ...
             href={href || '#'}
             target={href?.startsWith('http') ? '_blank' : undefined}
             rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className={`inline-flex items-center gap-1 bg-transparent bg-blue-500 hover:text-blue-500 font-semibold text-white py-1 px-2 border hover:bg-white hover:border-blue-500 border-transparent rounded ${className}`}
+            className={`inline-flex items-center gap-1 bg-blue-500 hover:text-blue-500 font-semibold text-white py-1 px-2 border hover:bg-transparent hover:border-blue-500 border-transparent rounded ${className}`}
             onClick={handleClick}
             {...rest}
         >
