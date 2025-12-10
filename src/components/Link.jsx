@@ -15,7 +15,7 @@ export default function Link({ href, to, children, className = '', onClick, ...r
             href={href || '#'}
             target={href?.startsWith('http') ? '_blank' : undefined}
             rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className={`font-semibold inline-flex items-center gap-1 text-blue-500 hover:underline ${className}`}
+            className={`font-semibold inline-flex items-center gap-1 text-blue-600 hover:underline ${className}`}
             onClick={handleClick}
             {...rest}
         >
