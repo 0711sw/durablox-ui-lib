@@ -10,3 +10,4 @@ export { default as LogoInline } from './components/LogoInline';
 export { default as TextBlock } from './components/TextBlock';
 export { default as Tooltip } from './components/Tooltip';
 export { default as Input } from './components/Input';
+export { default as Translated } from './components/Translated';
