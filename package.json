@@ -1,7 +1,6 @@
 {
   "name": "@durablox/ui",
-  "version": "0.7.3",
-  "private": true,
+  "version": "0.7.4",
   "license": "MIT",
   "author": "0711 Software GmbH",
   "contributors": [
