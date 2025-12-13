@@ -1,7 +1,7 @@
 import LogoIcon from './LogoIcon.jsx';
 import { useTranslation } from "react-i18next";
 
-export default function SibButton({ url }) {
+export default function SibButton({ url, className = '' }) {
     if (!url) {
         return null;
     }
@@ -9,7 +9,7 @@ export default function SibButton({ url }) {
     const { t } = useTranslation();
 
     return (
-        <div className="py-3 gap-2 flex">
+        <div className={`flex gap-2 ${className}`}>
             <a
                 href={url}
                 target="_blank"
