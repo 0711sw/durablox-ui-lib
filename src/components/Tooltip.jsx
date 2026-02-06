@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useLayoutEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function Tooltip({ children, tooltip }) {
     const [open, setOpen] = useState(false);
     const [coords, setCoords] = useState({ top: 0, left: 0 });
     const triggerRef = useRef(null);
+    const tooltipRef = useRef(null);
 
     function updatePosition() {
         if (triggerRef.current) {
@@ -15,6 +16,26 @@ export default function Tooltip({ children, tooltip }) {
             });
         }
     }
+
+    const clampToViewport = useCallback(() => {
+        if (!tooltipRef.current) return;
+        const el = tooltipRef.current;
+        const rect = el.getBoundingClientRect();
+        const pad = 8;
+
+        if (rect.right > window.innerWidth) {
+            el.style.left = (window.innerWidth - rect.width - pad) + 'px';
+            el.style.transform = 'translateY(-100%)';
+        }
+        if (rect.left < 0) {
+            el.style.left = pad + 'px';
+            el.style.transform = 'translateY(-100%)';
+        }
+    }, []);
+
+    useLayoutEffect(() => {
+        if (open) clampToViewport();
+    }, [open, coords, clampToViewport]);
 
     if (!tooltip) {
         return <div className="relative inline-block">{children}</div>;
@@ -31,6 +52,7 @@ export default function Tooltip({ children, tooltip }) {
             {children}
             {open && createPortal(
                 <div
+                    ref={tooltipRef}
                     className="fixed z-50 rounded bg-gray-800 px-3 py-2 text-sm text-white shadow-lg pointer-events-none"
                     style={{
                         top: coords.top,
