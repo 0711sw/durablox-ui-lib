@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, useCallback } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function Tooltip({ children, tooltip }) {
@@ -36,6 +36,17 @@ export default function Tooltip({ children, tooltip }) {
     useLayoutEffect(() => {
         if (open) clampToViewport();
     }, [open, coords, clampToViewport]);
+
+    useEffect(() => {
+        if (!open) return;
+        function onPointerDown(e) {
+            if (triggerRef.current && !triggerRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        }
+        document.addEventListener('pointerdown', onPointerDown);
+        return () => document.removeEventListener('pointerdown', onPointerDown);
+    }, [open]);
 
     if (!tooltip) {
         return <div className="relative inline-block">{children}</div>;
